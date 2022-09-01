@@ -4,18 +4,19 @@ Author: Kaiyun Chen
 '''
 
 from flask import Flask, jsonify, request
-
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import chart_studio
 import plotly.graph_objects as go
 import chart_studio.plotly as py
 import plotly.express as px
-
+import pymysql
+pymysql.install_as_MySQLdb()
 chart_studio.tools.set_credentials_file(username='kch0083', api_key='4oYjeM5PdCS815xuxyUS')
 
 app = Flask(__name__)
-
+CORS(app)
 app.config[
     'SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:adminadmin@database-2.coh1lexhr8xj.ap-northeast-1.rds.amazonaws.com' \
                                  ':3306/sys'
@@ -98,8 +99,8 @@ def add_articles():
 
     bmi = weight/((height/100)**2)
 
-    db.session.add(bmi)
-    db.session.commit()
+    # db.session.add(bmi)
+    # db.session.commit()
 
     return jsonify(bmi)
 
