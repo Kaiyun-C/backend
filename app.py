@@ -99,10 +99,10 @@ def add_articles():
 
     bmi = weight/((height/100)**2)
 
-    # db.session.add(bmi)
-    # db.session.commit()
+    db.session.add(bmi)
+    db.session.commit()
 
-    return jsonify(bmi)
+    return jsonify({"bmi":bmi})
 
 
 if __name__ == "__main__":
