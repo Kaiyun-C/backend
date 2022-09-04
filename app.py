@@ -11,9 +11,10 @@ import chart_studio
 import plotly.graph_objects as go
 import chart_studio.plotly as py
 import plotly.express as px
-import pymysql
-pymysql.install_as_MySQLdb()
-chart_studio.tools.set_credentials_file(username='kch0083', api_key='4oYjeM5PdCS815xuxyUS')
+# import pymysql
+# pymysql.install_as_MySQLdb()
+chart_studio.tools.set_credentials_file(
+    username='kch0083', api_key='4oYjeM5PdCS815xuxyUS')
 
 app = Flask(__name__)
 CORS(app)
@@ -44,7 +45,8 @@ def drawing_plot():
         y=males,
         name='Males',
         mode='lines',
-        line=dict(color='#0099e6')
+        line=dict(color='#0099e6'),
+
     )
 
     f_trend = go.Scatter(
@@ -52,14 +54,19 @@ def drawing_plot():
         y=females,
         name='Females',
         mode='lines',
-        line=dict(color='#99ddff')
+        line=dict(color='#f14444'),
+
     )
 
     final_data = [m_trend, f_trend]
     fig = go.Figure(final_data).update_xaxes(title_text='Year').update_yaxes(
         title_text='Age-standardised per cent').update_layout(
         title='Prevalence of type 2 diabetes, by sex, 2000–2020',
-        font=dict(size=25))
+        font=dict(size=25)).update_layout(
+        hoverlabel=dict(
+            font_size=25,
+            font_family="Rockwell"
+        ))
 
     py.plot(fig, filename='base_line', auto_open=False, show_link=False)
 
@@ -75,17 +82,20 @@ def drawing_plot():
     )
     num_comp = complication_df['Number_of_Complications']
     percentage = complication_df['Persons']
-    blue_color = ['#e6f2ff', '#80bfff', '#1a8cff', '#3366ff', '#005ce6', '#0040ff']
+    blue_color = ['#e6f2ff', '#80bfff', '#1a8cff',
+                  '#3366ff', '#005ce6', '#0040ff']
     fig2 = go.Figure(data=[go.Pie(labels=num_comp, values=percentage,
                                   hole=.6,
                                   pull=[0, 0.1, 0.1, 0.1, 0.15, 0.2],
-                                  marker_colors=blue_color
+                                  marker_colors=blue_color,
+                                  hoverinfo='skip'
                                   )])
     fig2.update_layout(
         title_text="Number of Complications percentage",
-        annotations=[dict(text='Age standardised percentage', font_size=16, showarrow=False)],
+        annotations=[dict(text='Age <br> standardised <br> percentage',
+                          font_size=25, showarrow=False)],
         font=dict(size=25)
-    )
+    ).update_layout(legend_title_text='Number of Complications')
     py.plot(fig2, filename='pie_c', auto_open=False, show_link=False)
 
 
@@ -99,11 +109,17 @@ def add_articles():
 
     bmi = weight/((height/100)**2)
 
-    db.session.add(bmi)
-    db.session.commit()
+    # db.session.add(bmi)
+    # db.session.commit()
 
-    return jsonify({"bmi":bmi})
+    return jsonify({"bmi": bmi})
+
+
+@app.route("/", methods=["GET"], strict_slashes=False)
+def index():
+
+    return jsonify({"HELLO": "WORLD"})
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
