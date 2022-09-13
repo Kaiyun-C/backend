@@ -92,6 +92,7 @@ def drawing_plot():
 drawing_plot()
 
 
+
 @app.route("/add", methods=["POST"], strict_slashes=False)
 def add_articles():
     height = float(request.json['height'])
@@ -99,11 +100,27 @@ def add_articles():
 
     bmi = weight/((height/100)**2)
 
-    db.session.add(bmi)
-    db.session.commit()
+    # db.session.add(bmi)
+    # db.session.commit()
 
     return jsonify({"bmi":bmi})
 
+# @app.route("/recipe",methods=["GET","POST"])
+# def any():
+#     tag= (request.json["tags"])
+#     可多选 [Low GI, Veg, Low Fat, High Protein, Low Carb, Halal] (inner join)
+#     perfer = (request.json["food"])
+#     单选 [Chicken, Beef, Fish, Pork, Seafood]
+#     
+#     search= request.json["keyword"]
+
+
+@app.route("/", methods=["GET"], strict_slashes=False)
+def index():
+
+    return jsonify({"HELLO": "WORLD"})
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+

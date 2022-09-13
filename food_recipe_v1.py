@@ -253,6 +253,7 @@ def show_vegetarian_plan(one_dict):
                 + Vegetables_dinner_one['Food'] + ' (100g in total); '\
                 + four_Vegetables_dinner_str + '; '\
                 + Nuts['Food'] + ' 25g'
+    #可选零食？
 
     # calculate calories
     kcal_bre = int(Staple_food_breakfast['Calories'] + 72 + Dairy_product['Calories'] + Fruit_breakfast['Calories'])
