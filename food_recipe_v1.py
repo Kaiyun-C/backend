@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import pymysql
 import random
+import json
 pymysql.install_as_MySQLdb()
 
 
@@ -63,8 +64,7 @@ def dairy_product(one_dict):
         if each['Bi_category'] in ['Dairy_products_1','Dairy_products_2']:
             Dairy_products_list.append(each)
     one_Dairy_product = random.sample(Dairy_products_list, 1)[0]
-    Dairy_product_str = one_Dairy_product['Food'] + ' ' + one_Dairy_product['Unit']
-    return Dairy_product_str
+    return one_Dairy_product
 
 # randomly choose 1 Fruit_1
 def fruit(one_dict):
@@ -82,8 +82,7 @@ def juice(one_dict):
         if each['Bi_category'] == 'Fruit_2':
             juice_list.append(each)
     one_juice = random.sample(juice_list, 1)[0]
-    one_juice_str = one_juice['Unit'] + ' ' + one_juice['Food']
-    return one_juice_str
+    return one_juice
 
 # randomly choose 1 Meat
 def meat(one_dict):
@@ -110,8 +109,7 @@ def vegetables_lunch(one_dict):
         if each['Bi_category'] == 'Vegetables' and each['Tag'] == 1:
             Vegetables_list_1.append(each)
     five_Vegetables = random.sample(Vegetables_list_1, 5)
-    five_Vegetables_list = [each['Food'] for each in five_Vegetables]
-    return five_Vegetables_list
+    return five_Vegetables
 
 # randomly choose 1 Vegetables from Tag 0
 def vegetables_dinner(one_dict):
@@ -120,8 +118,7 @@ def vegetables_dinner(one_dict):
         if each['Bi_category'] == 'Vegetables' and each['Tag'] == 0 :
             Vegetables_list.append(each)
     one_Vegetable = random.sample(Vegetables_list, 1)[0]
-    Vegetables_dinner_str = one_Vegetable['Food'] + ' (100g in total) '
-    return Vegetables_dinner_str
+    return one_Vegetable
 
 # randomly choose 1 Nuts
 def nuts(one_dict):
@@ -130,8 +127,7 @@ def nuts(one_dict):
         if each['Bi_category'] == 'Nuts':
             Nuts_list.append(each)
     one_Nut = random.sample(Nuts_list, 1)[0]
-    one_Nut_str = one_Nut['Food']
-    return one_Nut_str
+    return one_Nut
 
 def show_plan(one_dict):
     Staple_food_breakfast = staple_food(one_dict)
@@ -143,16 +139,21 @@ def show_plan(one_dict):
     Vegetables_dinner_one = vegetables_dinner(one_dict)
     Nuts = nuts(one_dict)
 
-    Vegetables_lunch_list = vegetables_lunch(one_dict)
-    five_Vegetables_str = ','.join(Vegetables_lunch_list)
+    Vegetables_lunch = vegetables_lunch(one_dict)
+    five_Vegetables_list = [each['Food'] for each in Vegetables_lunch]
+    five_Vegetables_cal = [each['Calories'] for each in Vegetables_lunch]
+    ve_cal_lunch = sum(five_Vegetables_cal) / 2
+    five_Vegetables_str = ','.join(five_Vegetables_list)
     Vegetables_lunch_str = five_Vegetables_str + ' (250-300g in total)'
 
     four_Vegetables_dinner = []
     for each in one_dict:
-        if each['Bi_category'] == 'Vegetables' and each['Tag'] in [2, 3] and each['Food'] not in Vegetables_lunch_list:
+        if each['Bi_category'] == 'Vegetables' and each['Tag'] in [2, 3] and each['Food'] not in five_Vegetables_list:
             four_Vegetables_dinner.append(each)
     four_Vegetables = random.sample(four_Vegetables_dinner, 4)
     four_Vegetables_list = [each['Food'] for each in four_Vegetables]
+    four_Vegetables_cal = [each['Calories'] for each in four_Vegetables]
+    ve_cal_dinner_1 = sum(four_Vegetables_cal) / 2
     four_Vegetables_str = ','.join(four_Vegetables_list)
     four_Vegetables_dinner_str = four_Vegetables_str + ' (Boiled, steamed or baked, 200-250g in total)'
 
@@ -174,27 +175,32 @@ def show_plan(one_dict):
             Seafood_dinner.append(each)
     one_seafood_dinner = random.sample(Seafood_dinner, 1)[0]
 
+    # recipe
+    Breakfast_plan = Staple_food_breakfast['Food']+ ' '+str(Staple_food_breakfast['Grams']) +'g; '\
+                    + '1 egg; '\
+                    + Dairy_product['Food'] + ' ' + Dairy_product['Unit'] +'; '\
+                    + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(Fruit_breakfast['Grams']) + 'g'
+    Lunch_plan = one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g; '\
+                + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit']  + ' ' + Tag_dict[Meat_lunch['Tag']]\
+                + ' or ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch['Unit'] + ' (Boiled, steamed or baked); '\
+                + 'Salad: ' + Vegetables_lunch_str +'; '\
+                + Juice['Unit'] + ' ' + Juice['Food']
+    Dinner_plan = one_Meat_dinner['Food'] + ' ' + one_Meat_dinner['Unit']  + ' ' + Tag_dict[one_Meat_dinner['Tag']]\
+                + ' or ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner['Food'] + ' (Boiled, steamed or baked); '\
+                + Vegetables_dinner_one['Food'] + ' (100g in total); '\
+                + four_Vegetables_dinner_str + '; '\
+                + Nuts['Food'] + ' 25g'
+    # calculate calories
+    kcal_bre = int(Staple_food_breakfast['Calories']+72+Dairy_product['Calories']+Fruit_breakfast['Calories'])
+    kcal_lun = int(one_Staple_lunch['Calories']+(Meat_lunch['Calories']+Seafood_lunch['Calories'])/2+ve_cal_lunch+Juice['Calories'])
+    kcal_din = int((one_Meat_dinner['Calories']+one_seafood_dinner['Calories'])/2+Vegetables_dinner_one['Calories']+ve_cal_dinner_1+Nuts['Calories']/2)
+    kcal_1day = kcal_bre+kcal_lun+kcal_din
 
-    meal_plan = 'Breakfast:\n'\
-                + '\t'+ Staple_food_breakfast['Food']+ ' '+str(Staple_food_breakfast['Grams']) +'g\n'\
-                + '\t1 egg\n'\
-                + '\t'+ Dairy_product +'\n'\
-                + '\t'+ Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(Fruit_breakfast['Grams']) + 'g\n'\
-                +'Lunch:\n'\
-                + '\t'+ one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g\n'\
-                + '\t' + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit']  + ' ' + Tag_dict[Meat_lunch['Tag']]\
-                + ' or ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch['Unit'] + ' (Boiled, steamed or baked)\n'\
-                + '\t'+ 'Salad: ' + Vegetables_lunch_str +'\n'\
-                + '\t'+ Juice + '\n' \
-                + 'Dinner:\n'\
-                + '\t' + one_Meat_dinner['Food'] + ' ' + one_Meat_dinner['Unit']  + ' ' + Tag_dict[one_Meat_dinner['Tag']]\
-                + ' or ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner['Food'] + ' (Boiled, steamed or baked)\n'\
-                + '\t' + Vegetables_dinner_one + '\n'\
-                + '\t' + four_Vegetables_dinner_str + '\n'\
-                + '\t' + Nuts + ' 25g'
-
-    return meal_plan
-
+    meal_plan = {'meal_plan': {'Breakfast': {'meal_plan': Breakfast_plan, 'kcal': kcal_bre},
+                               'Lunch': {'meal_plan': Lunch_plan, 'kcal': kcal_lun},
+                               'Dinner': {'meal_plan': Dinner_plan, 'kcal': kcal_din}}, 'kcal': kcal_1day}
+    meal_plan_json = json.dumps(meal_plan, ensure_ascii=False)
+    return meal_plan_json
 def show_vegetarian_plan(one_dict):
     Staple_food_breakfast = staple_food(one_dict)
     Dairy_product = dairy_product(one_dict)
@@ -203,16 +209,21 @@ def show_vegetarian_plan(one_dict):
     Vegetables_dinner_one = vegetables_dinner(one_dict)
     Nuts = nuts(one_dict)
 
-    Vegetables_lunch_list = vegetables_lunch(one_dict)
-    five_Vegetables_str = ','.join(Vegetables_lunch_list)
+    Vegetables_lunch = vegetables_lunch(one_dict)
+    five_Vegetables_list = [each['Food'] for each in Vegetables_lunch]
+    five_Vegetables_cal = [each['Calories'] for each in Vegetables_lunch]
+    ve_cal_lunch = sum(five_Vegetables_cal) * 0.65
+    five_Vegetables_str = ','.join(five_Vegetables_list)
     Vegetables_lunch_str = five_Vegetables_str + ' (300-350g in total)'
 
     four_Vegetables_dinner = []
     for each in one_dict:
-        if each['Bi_category'] == 'Vegetables' and each['Tag'] in [2, 3] and each['Food'] not in Vegetables_lunch_list:
+        if each['Bi_category'] == 'Vegetables' and each['Tag'] in [2, 3] and each['Food'] not in five_Vegetables_list:
             four_Vegetables_dinner.append(each)
     four_Vegetables = random.sample(four_Vegetables_dinner, 4)
     four_Vegetables_list = [each['Food'] for each in four_Vegetables]
+    four_Vegetables_cal = [each['Calories'] for each in four_Vegetables]
+    ve_cal_dinner_1 = sum(four_Vegetables_cal) * 0.8
     four_Vegetables_str = ','.join(four_Vegetables_list)
     four_Vegetables_dinner_str = four_Vegetables_str + ' (Boiled, steamed or baked, 300-350g in total)'
 
@@ -229,45 +240,53 @@ def show_vegetarian_plan(one_dict):
     one_Fruit_lunch = random.sample(Fruit_lunch_list, 1)[0]
     one_Fruit_str_lunch = one_Fruit_lunch['Unit'] + ' ' + one_Fruit_lunch['Food'] + ' ' + str(one_Fruit_lunch['Grams'])
 
-    meal_plan = 'Breakfast:\n'\
-                + '\t' + Staple_food_breakfast['Food']+ ' '+str(Staple_food_breakfast['Grams']) +'g\n'\
-                + '\t1 egg\n'\
-                + '\t' + Dairy_product +'\n'\
-                + '\t' + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(Fruit_breakfast['Grams']) + 'g\n'\
-                +'Lunch:\n'\
-                + '\t' + one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g\n'\
-                + '\t1 egg\n'\
-                + '\t' + 'Salad: ' + Vegetables_lunch_str +'\n' \
-                + '\t' + one_Fruit_str_lunch + 'g\n' \
-                + '\t' + Juice + '\n' \
-                + 'Dinner:\n'\
-                + '\t1 egg\n'\
-                + '\t' + Vegetables_dinner_one + '\n'\
-                + '\t' + four_Vegetables_dinner_str + '\n'\
-                + '\t' + Nuts + ' 25g'
-    return meal_plan
+    Breakfast_plan = Staple_food_breakfast['Food']+ ' '+str(Staple_food_breakfast['Grams']) +'g; '\
+                    + '1 egg; '\
+                    + Dairy_product['Food'] + ' ' + Dairy_product['Unit'] +'; '\
+                    + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(Fruit_breakfast['Grams']) + 'g'
+    Lunch_plan = one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g; '\
+                + '1 egg; '\
+                + 'Salad: ' + Vegetables_lunch_str +'; ' \
+                + one_Fruit_str_lunch + 'g; ' \
+                + Juice['Unit'] + ' ' + Juice['Food']
+    Dinner_plan = '1 egg; '\
+                + Vegetables_dinner_one['Food'] + ' (100g in total); '\
+                + four_Vegetables_dinner_str + '; '\
+                + Nuts['Food'] + ' 25g'
+
+    # calculate calories
+    kcal_bre = int(Staple_food_breakfast['Calories'] + 72 + Dairy_product['Calories'] + Fruit_breakfast['Calories'])
+    kcal_lun = int(one_Staple_lunch['Calories'] + 72 + ve_cal_lunch + Juice['Calories'])
+    kcal_din = int(72 + Vegetables_dinner_one['Calories'] + ve_cal_dinner_1 + Nuts['Calories'] / 2)
+    kcal_1day = kcal_bre + kcal_lun + kcal_din
+
+    meal_plan = {'meal_plan': {'Breakfast': {'meal_plan': Breakfast_plan, 'kcal': kcal_bre},
+                               'Lunch': {'meal_plan': Lunch_plan, 'kcal': kcal_lun},
+                               'Dinner': {'meal_plan': Dinner_plan, 'kcal': kcal_din}}, 'kcal': kcal_1day}
+    meal_plan_json = json.dumps(meal_plan, ensure_ascii=False)
+    return meal_plan_json
 
 # show the recipes:
 # no setting
-show_plan(food_dict)
+print(show_plan(food_dict))
 
 ## low calories
-# show_plan(food_dict_cal)
+print(show_plan(food_dict_cal))
 
 ## low GI
-# show_plan(food_dict_GI)
+print(show_plan(food_dict_GI))
 
 ## both low calories and low GI
-# show_plan(food_dict_cal_GI)
+print(show_plan(food_dict_cal_GI))
 
 ## vegetarian
-# show_vegetarian_plan(food_dict)
+print(show_vegetarian_plan(food_dict))
 
 ## low calories and vegetarian
-# show_vegetarian_plan(food_dict_cal)
+print(show_vegetarian_plan(food_dict_cal))
 
 ## low GI and vegetarian
-# show_vegetarian_plan(food_dict_GI)
+print(show_vegetarian_plan(food_dict_GI))
 
 ### low calories low GI and vegetarian
-# show_vegetarian_plan(food_dict_cal_GI)
+print(show_vegetarian_plan(food_dict_cal_GI))
