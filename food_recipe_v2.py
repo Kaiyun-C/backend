@@ -396,15 +396,25 @@ class Recipe:
         return meal_plan
 
     def fifty_plan(self, tag, one_dict):
-        tag_dict = {}
         key_list = []
         for i in range(0,50):
             key_item = self.show_plan(self.tag, self.one_dict)
             key_list.append(key_item)
-        tag_dict[self.tag] = key_list
-        fifty_meal_plan_json = json.dumps(tag_dict, ensure_ascii=False)
-        return fifty_meal_plan_json
+        return key_list
 
 
 a = Recipe('high_protein',food_dict_cal_GI_halal_carb)
 print(a.fifty_plan('high_protein',food_dict_cal_GI_halal_carb))
+
+dict_name_list = ['', 'low_cal', 'low_GI', 'low_cal_GI', 'halal', 'low_cal_halal', 'low_GI_halal', 'low_cal_GI_halal', 'low_carb', 'low_cal_carb', 'low_GI_carb', 'low_cal_GI_carb', 'halal_low_carb', 'low_cal_halal_carb', 'low_GI_halal_carb', 'low_cal_GI_halal_carb']
+dict_list = [food_dict, food_dict_cal, food_dict_GI, food_dict_cal_GI, food_dict_halal, food_dict_cal_halal, food_dict_GI_halal, food_dict_cal_GI_halal, food_dict_carb, food_dict_cal_carb, food_dict_GI_carb, food_dict_cal_GI_carb, food_dict_halal_carb, food_dict_cal_halal_carb, food_dict_GI_halal_carb, food_dict_cal_GI_halal_carb]
+tag_list = ['normal', 'veg', 'high_protein']
+tag_recipe_pair = {}
+for i in range(0, len(dict_name_list)):
+    for tag in tag_list:
+        tag_name_pair = [tag, dict_name_list[i]]
+        tag_name = "_".join(tag_name_pair)
+        pair = Recipe(tag,dict_list[i])
+        tag_recipe_pair[tag_name] = pair.fifty_plan(tag, dict_list[i])
+        tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
+print(tag_recipe_pair_json)
