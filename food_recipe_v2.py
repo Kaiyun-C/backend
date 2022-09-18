@@ -107,6 +107,7 @@ class Recipe:
     veg 和 high protein的 meal组成方式 与别的不同
     所以对于 Low GI, Low Fat, Low Carb, Halal 的排列组合归纳成了不同的 dictionary，作为参数 one_dict
     对于是否是 veg、是否是 high protein作为 tag：'veg', 'high_protein'
+    high_protein不提供veg食谱
     '''
     def __init__(self, tag, one_dict):
         self.tag = tag
@@ -397,24 +398,32 @@ class Recipe:
 
     def fifty_plan(self, tag, one_dict):
         key_list = []
-        for i in range(0,50):
+        for i in range(0,3):
             key_item = self.show_plan(self.tag, self.one_dict)
             key_list.append(key_item)
         return key_list
 
 
-a = Recipe('high_protein',food_dict_cal_GI_halal_carb)
-print(a.fifty_plan('high_protein',food_dict_cal_GI_halal_carb))
+#a = Recipe('high_protein',food_dict_cal_GI_halal_carb)
+#print(a.fifty_plan('high_protein',food_dict_cal_GI_halal_carb))
 
-dict_name_list = ['', 'low_cal', 'low_GI', 'low_cal_GI', 'halal', 'low_cal_halal', 'low_GI_halal', 'low_cal_GI_halal', 'low_carb', 'low_cal_carb', 'low_GI_carb', 'low_cal_GI_carb', 'halal_low_carb', 'low_cal_halal_carb', 'low_GI_halal_carb', 'low_cal_GI_halal_carb']
+
+# ["Low GI", "Low Fat", "Low Carbohydrate","Halal","High Protein","Vegetarian"]
+dict_name_list = ['NO TAG', 'Low Fat', 'Low GI', 'Low Fat-Low GI', 'Halal', 'Low Fat-Halal', 'Low GI-Halal', 'Low Fat-Low GI-Halal', 'Low Carbohydrate', 'Low Fat-Low Carbohydrate', 'Low GI-Low Carbohydrate', 'Low Fat-Low GI-Low Carbohydrate', 'Halal-Low Carbohydrate', 'Low Fat-Halal-Low Carbohydrate', 'Low GI-Halal-Low Carbohydrate', 'Low Fat-Low GI-Halal-Low Carbohydrate']
 dict_list = [food_dict, food_dict_cal, food_dict_GI, food_dict_cal_GI, food_dict_halal, food_dict_cal_halal, food_dict_GI_halal, food_dict_cal_GI_halal, food_dict_carb, food_dict_cal_carb, food_dict_GI_carb, food_dict_cal_GI_carb, food_dict_halal_carb, food_dict_cal_halal_carb, food_dict_GI_halal_carb, food_dict_cal_GI_halal_carb]
-tag_list = ['normal', 'veg', 'high_protein']
+tag_list = ['normal', 'Vegetarian', 'High Protein']
 tag_recipe_pair = {}
 for i in range(0, len(dict_name_list)):
     for tag in tag_list:
-        tag_name_pair = [tag, dict_name_list[i]]
-        tag_name = "_".join(tag_name_pair)
+        if tag == 'normal':
+            tag_name = dict_name_list[i]
+        else:
+            if i == 0:
+                tag_name = tag
+            else:
+                tag_name_pair = [tag, dict_name_list[i]]
+                tag_name = "-".join(tag_name_pair)
         pair = Recipe(tag,dict_list[i])
         tag_recipe_pair[tag_name] = pair.fifty_plan(tag, dict_list[i])
-        tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
-print(tag_recipe_pair_json)
+#tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
+print(tag_recipe_pair.keys())
