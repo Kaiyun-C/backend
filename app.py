@@ -2,7 +2,8 @@
 Date: 28/08/2022
 Author: Kaiyun Chen
 '''
-
+import requests
+import base64
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -15,7 +16,8 @@ import random
 import json
 import pymysql
 pymysql.install_as_MySQLdb()
-chart_studio.tools.set_credentials_file(username='kch0083', api_key='4oYjeM5PdCS815xuxyUS')
+chart_studio.tools.set_credentials_file(
+    username='kch0083', api_key='4oYjeM5PdCS815xuxyUS')
 
 app = Flask(__name__)
 CORS(app)
@@ -77,7 +79,8 @@ def drawing_plot():
     )
     num_comp = complication_df['Number_of_Complications']
     percentage = complication_df['Persons']
-    blue_color = ['#e6f2ff', '#80bfff', '#1a8cff', '#3366ff', '#005ce6', '#0040ff']
+    blue_color = ['#e6f2ff', '#80bfff', '#1a8cff',
+                  '#3366ff', '#005ce6', '#0040ff']
     fig2 = go.Figure(data=[go.Pie(labels=num_comp, values=percentage,
                                   hole=.6,
                                   pull=[0, 0.1, 0.1, 0.1, 0.15, 0.2],
@@ -85,7 +88,8 @@ def drawing_plot():
                                   )])
     fig2.update_layout(
         title_text="Number of Complications percentage",
-        annotations=[dict(text='Age standardised percentage', font_size=16, showarrow=False)],
+        annotations=[dict(text='Age standardised percentage',
+                          font_size=16, showarrow=False)],
         font=dict(size=25)
     )
     py.plot(fig2, filename='pie_c', auto_open=False, show_link=False)
@@ -98,14 +102,16 @@ food_df = pd.read_sql_table(
     "clanned_calories",
     "mysql://admin:adminadmin@database-2.coh1lexhr8xj.ap-northeast-1.rds.amazonaws.com:3306/data1",
 )
-head_list = list(food_df.columns) # ['Food', 'Bi_category', 'Tag', 'Unit', 'Grams', 'Calories', 'Protein', 'Fat', 'Sat.Fat', 'Fiber', 'Carbs', 'GI', 'GI_level']
+# ['Food', 'Bi_category', 'Tag', 'Unit', 'Grams', 'Calories', 'Protein', 'Fat', 'Sat.Fat', 'Fiber', 'Carbs', 'GI', 'GI_level']
+head_list = list(food_df.columns)
 food_dict = []
 for row in food_df.values:
     # {'Food': "Cows' milk", 'Bi_category': 'Dairy_products_1', 'Tag': 1, 'Unit': '1 cup', 'Grams': 250, 'Calories': 169.06, 'Protein': 8.2, 'Fat': 10.25, 'Sat.Fat': 9.22, 'Fiber': 0, 'Carbs': 12.3, 'GI': 27.6, 'GI_level': 'low'}
     row_dict = dict(zip(head_list, row))
     food_dict.append(row_dict)
 # Tag
-Tag_dict = {0: '', 1: '', 2: 'Boiled', 3: 'Steamed', 4: 'Baked', 5: 'Fried with less oil'}
+Tag_dict = {0: '', 1: '', 2: 'Boiled', 3: 'Steamed',
+            4: 'Baked', 5: 'Fried with less oil'}
 
 # dictionary list of Low GI, Low Fat, Low Carb, Halal
 food_dict_cal = []
@@ -183,6 +189,7 @@ class Recipe:
     所以对于 Low GI, Low Fat, Low Carb, Halal 的排列组合归纳成了不同的 dictionary，作为参数 one_dict
     对于是否是 veg、是否是 high protein作为 tag：'veg', 'high_protein'
     '''
+
     def __init__(self, tag, one_dict):
         self.tag = tag
         self.one_dict = one_dict
@@ -319,13 +326,15 @@ class Recipe:
             ve_pro_dinner_1 = sum(four_Vegetables_pro) / 2
             ve_carb_dinner_1 = sum(four_Vegetables_carb) / 2
             four_Vegetables_str = ','.join(four_Vegetables_list)
-            four_Vegetables_dinner_str = four_Vegetables_str + ' (Boiled, steamed or baked, 200-250g in total)'
+            four_Vegetables_dinner_str = four_Vegetables_str + \
+                ' (Boiled, steamed or baked, 200-250g in total)'
         else:
             ve_cal_dinner_1 = sum(four_Vegetables_cal) * 0.8
             ve_pro_dinner_1 = sum(four_Vegetables_pro) * 0.8
             ve_carb_dinner_1 = sum(four_Vegetables_carb) * 0.8
             four_Vegetables_str = ','.join(four_Vegetables_list)
-            four_Vegetables_dinner_str = four_Vegetables_str + ' (Boiled, steamed or baked, 300-350g in total)'
+            four_Vegetables_dinner_str = four_Vegetables_str + \
+                ' (Boiled, steamed or baked, 300-350g in total)'
 
         Staple_food_lunch = []
         for each in self.one_dict:
@@ -338,7 +347,6 @@ class Recipe:
             if each['Bi_category'] == 'Meat' and each['Food'] != Meat_lunch['Food']:
                 Meat_dinner.append(each)
         one_Meat_dinner = random.sample(Meat_dinner, 1)[0]
-
 
         Seafood_dinner = []
         for each in self.one_dict:
@@ -356,16 +364,16 @@ class Recipe:
 
         # recipe
         Breakfast_plan = Staple_food_breakfast['Food'] + ' ' + str(Staple_food_breakfast['Grams']) + 'g; ' \
-                         + '1 egg; ' \
-                         + Dairy_product['Food'] + ' ' + Dairy_product['Unit'] + '; ' \
-                         + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(
+            + '1 egg; ' \
+            + Dairy_product['Food'] + ' ' + Dairy_product['Unit'] + '; ' \
+            + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(
             Fruit_breakfast['Grams']) + 'g'
         if tag == 'veg':
             Lunch_plan = one_Staple_lunch['Food'] + ' ' + str(one_Staple_lunch['Grams']) + 'g; ' \
-                         + '1 egg; ' \
-                         + 'Salad: ' + Vegetables_lunch_str + '; ' \
-                         + one_Fruit_str_lunch + 'g; ' \
-                         + Juice['Unit'] + ' ' + Juice['Food']
+                + '1 egg; ' \
+                + 'Salad: ' + Vegetables_lunch_str + '; ' \
+                + one_Fruit_str_lunch + 'g; ' \
+                + Juice['Unit'] + ' ' + Juice['Food']
             Dinner_plan = '1 egg; ' \
                           + Vegetables_dinner_one['Food'] + ' (100g in total); ' \
                           + four_Vegetables_dinner_str + '; ' \
@@ -374,70 +382,87 @@ class Recipe:
             # calculate calories
             kcal_bre = int(
                 Staple_food_breakfast['Calories'] + 72 + Dairy_product['Calories'] + Fruit_breakfast['Calories'])
-            kcal_lun = int(one_Staple_lunch['Calories'] + 72 + ve_cal_lunch + Juice['Calories'])
-            kcal_din = int(72 + Vegetables_dinner_one['Calories'] + ve_cal_dinner_1 + Nuts['Calories'] / 2)
+            kcal_lun = int(
+                one_Staple_lunch['Calories'] + 72 + ve_cal_lunch + Juice['Calories'])
+            kcal_din = int(
+                72 + Vegetables_dinner_one['Calories'] + ve_cal_dinner_1 + Nuts['Calories'] / 2)
             kcal_1day = kcal_bre + kcal_lun + kcal_din
 
             # calculate Protein
-            pro_bre = int(Staple_food_breakfast['Protein'] + 6 + Dairy_product['Protein'] + Fruit_breakfast['Protein'])
-            pro_lun = int(one_Staple_lunch['Protein'] + 6 + ve_pro_lunch + Juice['Protein'])
-            pro_din = int(6 + Vegetables_dinner_one['Protein'] + ve_pro_dinner_1 + Nuts['Protein'] / 2)
+            pro_bre = int(Staple_food_breakfast['Protein'] + 6 +
+                          Dairy_product['Protein'] + Fruit_breakfast['Protein'])
+            pro_lun = int(
+                one_Staple_lunch['Protein'] + 6 + ve_pro_lunch + Juice['Protein'])
+            pro_din = int(
+                6 + Vegetables_dinner_one['Protein'] + ve_pro_dinner_1 + Nuts['Protein'] / 2)
             pro_1day = pro_bre + pro_lun + pro_din
 
             # calculate Carbs
-            carb_bre = int(Staple_food_breakfast['Carbs'] + 0 + Dairy_product['Carbs'] + Fruit_breakfast['Carbs'])
-            carb_lun = int(one_Staple_lunch['Carbs'] + 0 + ve_carb_lunch + Juice['Carbs'])
-            carb_din = int(0 + Vegetables_dinner_one['Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
+            carb_bre = int(
+                Staple_food_breakfast['Carbs'] + 0 + Dairy_product['Carbs'] + Fruit_breakfast['Carbs'])
+            carb_lun = int(
+                one_Staple_lunch['Carbs'] + 0 + ve_carb_lunch + Juice['Carbs'])
+            carb_din = int(
+                0 + Vegetables_dinner_one['Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
             carb_1day = carb_bre + carb_lun + carb_din
         else:
             if tag != 'high_protein':
-                Lunch_plan = one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g; '\
-                            + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit']  + ' ' + Tag_dict[Meat_lunch['Tag']]\
-                            + ' or ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch['Unit'] + ' (Boiled, steamed or baked); '\
-                            + 'Salad: ' + Vegetables_lunch_str +'; '\
-                            + Juice['Unit'] + ' ' + Juice['Food']
-                Dinner_plan = one_Meat_dinner['Food'] + ' ' + one_Meat_dinner['Unit']  + ' ' + Tag_dict[one_Meat_dinner['Tag']]\
-                            + ' or ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner['Food'] + ' (Boiled, steamed or baked); '\
-                            + Vegetables_dinner_one['Food'] + ' (100g in total); '\
-                            + four_Vegetables_dinner_str + '; '\
-                            + Nuts['Food'] + ' 25g'
+                Lunch_plan = one_Staple_lunch['Food'] + ' '+str(one_Staple_lunch['Grams']) + 'g; '\
+                    + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit'] + ' ' + Tag_dict[Meat_lunch['Tag']]\
+                    + ' or ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch['Unit'] + ' (Boiled, steamed or baked); '\
+                    + 'Salad: ' + Vegetables_lunch_str + '; '\
+                    + Juice['Unit'] + ' ' + Juice['Food']
+                Dinner_plan = one_Meat_dinner['Food'] + ' ' + one_Meat_dinner['Unit'] + ' ' + Tag_dict[one_Meat_dinner['Tag']]\
+                    + ' or ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner['Food'] + ' (Boiled, steamed or baked); '\
+                    + Vegetables_dinner_one['Food'] + ' (100g in total); '\
+                    + four_Vegetables_dinner_str + '; '\
+                    + Nuts['Food'] + ' 25g'
                 # calculate calories
-                kcal_bre = int(Staple_food_breakfast['Calories']+72+Dairy_product['Calories']+Fruit_breakfast['Calories'])
-                kcal_lun = int(one_Staple_lunch['Calories']+(Meat_lunch['Calories']+Seafood_lunch['Calories'])/2+ve_cal_lunch+Juice['Calories'])
-                kcal_din = int((one_Meat_dinner['Calories']+one_seafood_dinner['Calories'])/2+Vegetables_dinner_one['Calories']+ve_cal_dinner_1+Nuts['Calories']/2)
+                kcal_bre = int(
+                    Staple_food_breakfast['Calories']+72+Dairy_product['Calories']+Fruit_breakfast['Calories'])
+                kcal_lun = int(one_Staple_lunch['Calories']+(
+                    Meat_lunch['Calories']+Seafood_lunch['Calories'])/2+ve_cal_lunch+Juice['Calories'])
+                kcal_din = int((one_Meat_dinner['Calories']+one_seafood_dinner['Calories']) /
+                               2+Vegetables_dinner_one['Calories']+ve_cal_dinner_1+Nuts['Calories']/2)
                 kcal_1day = kcal_bre+kcal_lun+kcal_din
 
                 # calculate Protein
-                pro_bre = int(Staple_food_breakfast['Protein'] + 6 + Dairy_product['Protein'] + Fruit_breakfast['Protein'])
-                pro_lun = int(one_Staple_lunch['Protein'] + (Meat_lunch['Protein'] + Seafood_lunch['Protein']) / 2 + ve_pro_lunch + Juice['Protein'])
-                pro_din = int((one_Meat_dinner['Protein'] + one_seafood_dinner['Protein']) / 2 + Vegetables_dinner_one['Calories'] + ve_pro_dinner_1 + Nuts['Protein'] / 2)
+                pro_bre = int(
+                    Staple_food_breakfast['Protein'] + 6 + Dairy_product['Protein'] + Fruit_breakfast['Protein'])
+                pro_lun = int(one_Staple_lunch['Protein'] + (Meat_lunch['Protein'] +
+                              Seafood_lunch['Protein']) / 2 + ve_pro_lunch + Juice['Protein'])
+                pro_din = int((one_Meat_dinner['Protein'] + one_seafood_dinner['Protein']) /
+                              2 + Vegetables_dinner_one['Calories'] + ve_pro_dinner_1 + Nuts['Protein'] / 2)
                 pro_1day = pro_bre + pro_lun + pro_din
 
                 # calculate Carbs
-                carb_bre = int(Staple_food_breakfast['Carbs'] + 0 + Dairy_product['Carbs'] + Fruit_breakfast['Carbs'])
-                carb_lun = int(one_Staple_lunch['Carbs'] + (Meat_lunch['Carbs'] + Seafood_lunch['Carbs']) / 2 + ve_carb_lunch + Juice['Carbs'])
-                carb_din = int((one_Meat_dinner['Carbs'] + one_seafood_dinner['Carbs']) / 2 + Vegetables_dinner_one['Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
+                carb_bre = int(
+                    Staple_food_breakfast['Carbs'] + 0 + Dairy_product['Carbs'] + Fruit_breakfast['Carbs'])
+                carb_lun = int(one_Staple_lunch['Carbs'] + (
+                    Meat_lunch['Carbs'] + Seafood_lunch['Carbs']) / 2 + ve_carb_lunch + Juice['Carbs'])
+                carb_din = int((one_Meat_dinner['Carbs'] + one_seafood_dinner['Carbs']) /
+                               2 + Vegetables_dinner_one['Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
                 carb_1day = carb_bre + carb_lun + carb_din
             else:
                 Lunch_plan = one_Staple_lunch['Food'] + ' ' + str(one_Staple_lunch['Grams']) + 'g; ' \
-                             + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit'] + ' ' + Tag_dict[Meat_lunch['Tag']] \
-                             + ' and ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch[
-                                 'Unit'] + ' (Boiled, steamed or baked); ' \
-                             + 'Salad: ' + Vegetables_lunch_str + '; ' \
-                             + Juice['Unit'] + ' ' + Juice['Food']
+                    + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit'] + ' ' + Tag_dict[Meat_lunch['Tag']] \
+                    + ' and ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch[
+                    'Unit'] + ' (Boiled, steamed or baked); ' \
+                    + 'Salad: ' + Vegetables_lunch_str + '; ' \
+                    + Juice['Unit'] + ' ' + Juice['Food']
                 Dinner_plan = one_Meat_dinner['Food'] + ' ' + one_Meat_dinner['Unit'] + ' ' + Tag_dict[
                     one_Meat_dinner['Tag']] \
-                              + ' and ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner[
-                                  'Food'] + ' (Boiled, steamed or baked); ' \
-                              + Vegetables_dinner_one['Food'] + ' (100g in total); ' \
+                    + ' and ' + one_seafood_dinner['Unit'] + ' ' + one_seafood_dinner[
+                    'Food'] + ' (Boiled, steamed or baked); ' \
+                    + Vegetables_dinner_one['Food'] + ' (100g in total); ' \
                               + four_Vegetables_dinner_str + '; ' \
                               + Nuts['Food'] + ' 25g'
                 # calculate calories
                 kcal_bre = int(Staple_food_breakfast['Calories'] + 72 + Dairy_product['Calories'] + Fruit_breakfast[
                     'Calories'])
                 kcal_lun = int(one_Staple_lunch['Calories'] +
-                            Meat_lunch['Calories'] + Seafood_lunch['Calories']+ ve_cal_lunch + Juice[
-                                   'Calories'])
+                               Meat_lunch['Calories'] + Seafood_lunch['Calories'] + ve_cal_lunch + Juice[
+                    'Calories'])
                 kcal_din = int(
                     one_Meat_dinner['Calories'] + one_seafood_dinner['Calories'] + Vegetables_dinner_one[
                         'Calories'] + ve_cal_dinner_1 + Nuts['Calories'] / 2)
@@ -447,7 +472,7 @@ class Recipe:
                 pro_bre = int(
                     Staple_food_breakfast['Protein'] + 6 + Dairy_product['Protein'] + Fruit_breakfast['Protein'])
                 pro_lun = int(one_Staple_lunch['Protein'] +
-                            Meat_lunch['Protein'] + Seafood_lunch['Protein'] + ve_pro_lunch + Juice['Protein'])
+                              Meat_lunch['Protein'] + Seafood_lunch['Protein'] + ve_pro_lunch + Juice['Protein'])
                 pro_din = int(
                     one_Meat_dinner['Protein'] + one_seafood_dinner['Protein'] + Vegetables_dinner_one[
                         'Calories'] + ve_pro_dinner_1 + Nuts['Protein'] / 2)
@@ -463,7 +488,6 @@ class Recipe:
                     'Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
                 carb_1day = carb_bre + carb_lun + carb_din
 
-
         meal_plan = {'meal_plan': {'Breakfast': {'meal_plan': Breakfast_plan, 'kcal': kcal_bre, 'Protein': pro_bre, 'Carbs': carb_bre},
                                    'Lunch': {'meal_plan': Lunch_plan, 'kcal': kcal_lun, 'Protein': pro_lun, 'Carbs': carb_lun},
                                    'Dinner': {'meal_plan': Dinner_plan, 'kcal': kcal_din, 'Protein': pro_din, 'Carbs': carb_din}}, 'kcal': kcal_1day, 'Protein': pro_1day, 'Carbs': carb_1day}
@@ -472,11 +496,10 @@ class Recipe:
 
     def fifty_plan(self, tag, one_dict):
         key_list = []
-        for i in range(0,50):
+        for i in range(0, 50):
             key_item = self.show_plan(self.tag, self.one_dict)
             key_list.append(key_item)
         return key_list
-
 
 
 @app.route("/add", methods=["POST"], strict_slashes=False)
@@ -489,7 +512,27 @@ def add_articles():
     # db.session.add(bmi)
     # db.session.commit()
 
-    return jsonify({"bmi":bmi})
+    return jsonify({"bmi": bmi})
+
+
+@app.route("/scan", methods=["POST"], strict_slashes=False)
+def scan_jpg():
+    base64Data = request.json['base64d']
+    to_pic = base64.b64decode(base64Data)
+
+    api_user_token = '12935cba7a819df79be9a1d374e7b5852365b2e0'
+    headers = {'Authorization': 'Bearer ' + api_user_token}
+
+# Single/Several Dishes Detection
+    url = 'https://api.logmeal.es/v2/segmentation/complete'
+    resp = requests.post(url, files={'image': to_pic}, headers=headers)
+
+# Nutritional information
+    url = 'https://api.logmeal.es/v2/recipe/nutritionalInfo'
+    resp = requests.post(url, json={'imageId': resp.json()[
+                         'imageId']}, headers=headers)
+    return (resp.json())  # display nutritional info
+
 
 # @app.route("/recipe",methods=["GET","POST"])
 # def any():
@@ -497,9 +540,9 @@ def add_articles():
 #     可多选 [Low GI, Veg, Low Fat, High Protein, Low Carb, Halal] (inner join)
 #     perfer = (request.json["food"])
 #     单选 [Chicken, Beef, Fish, Pork, Seafood]
-#     
+#
 #     search= request.json["keyword"]
-@app.route("/recipe",methods=["POST"], strict_slashes=False)
+@app.route("/recipe", methods=["POST"], strict_slashes=False)
 def all_tag_food_recipe():
     dict_name_list = ['NO TAG', 'Low Fat', 'Low GI', 'Low Fat-Low GI', 'Halal', 'Low Fat-Halal', 'Low GI-Halal',
                       'Low Fat-Low GI-Halal', 'Low Carbohydrate', 'Low Fat-Low Carbohydrate', 'Low GI-Low Carbohydrate',
@@ -526,12 +569,12 @@ def all_tag_food_recipe():
     # tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
     return jsonify(tag_recipe_pair)
 
+
 @app.route("/", methods=["GET"], strict_slashes=False)
 def index():
 
-    return jsonify({"HELLO": "WORLD"})
+    return jsonify({"HELLO": "WORLD2"})
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
-
+    app.run()
