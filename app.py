@@ -63,7 +63,12 @@ def drawing_plot():
     fig = go.Figure(final_data).update_xaxes(title_text='Year').update_yaxes(
         title_text='Age-standardised per cent').update_layout(
         title='Prevalence of type 2 diabetes, by sex, 2000–2020',
-        font=dict(size=25))
+        font=dict(size=25)).update_layout(
+            hoverlabel=dict(
+                font_size=25,
+                font_family="Rockwell"
+            )
+    )
 
     py.plot(fig, filename='base_line', auto_open=False, show_link=False)
 
@@ -84,14 +89,15 @@ def drawing_plot():
     fig2 = go.Figure(data=[go.Pie(labels=num_comp, values=percentage,
                                   hole=.6,
                                   pull=[0, 0.1, 0.1, 0.1, 0.15, 0.2],
-                                  marker_colors=blue_color
+                                  marker_colors=blue_color,
+                                  hoverinfo='skip'
                                   )])
     fig2.update_layout(
         title_text="Number of Complications percentage",
-        annotations=[dict(text='Age standardised percentage',
-                          font_size=16, showarrow=False)],
+        annotations=[dict(text='Age <br> standardised <br> percentage',
+                          font_size=25, showarrow=False)],
         font=dict(size=25)
-    )
+    ).update_layout(legend_title_text='Number of Complications')
     py.plot(fig2, filename='pie_c', auto_open=False, show_link=False)
 
 
