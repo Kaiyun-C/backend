@@ -16,10 +16,19 @@ import pandas as pd
 # comp_sex.to_csv('cleanned_complications_sex.csv',index=False)
 
 
-comp = pd.read_csv("complications_sex.csv")
-print(comp)
+# comp = pd.read_csv("complications_sex.csv")
+# print(comp)
 
-comp_sex = comp[['Number of complications','Males','Females','Persons']]
-comp_sex.columns = ['Number_of_complications', 'Males', 'Females','Persons']
-print(comp_sex)
-comp_sex.to_csv('cleanned_complications_sex_number.csv',index=False)
+# comp_sex = comp[['Number of complications','Males','Females','Persons']]
+# comp_sex.columns = ['Number_of_complications', 'Males', 'Females','Persons']
+# print(comp_sex)
+# comp_sex.to_csv('cleanned_complications_sex_number.csv',index=False)
+
+cal = pd.read_csv("food_data_v2.csv")
+cal_nona = cal.dropna(axis=1, how='all')  # drop na
+cols = range(1, 10)
+cal_nona.drop(cal_nona.columns[cols], axis=1, inplace=True)  # keep the needed
+cal_new = cal_nona.replace('#VALUE!', 0)  # set #VALUE! to 0
+cal_new.columns = ['Food', 'Bi_category', 'Tag', 'Unit', 'Grams', 'Calories',
+                   'Protein', 'Fat', 'Sat.Fat', 'Fiber', 'Carbs', 'GI', 'GI_level']  # rename
+cal_new.to_csv('clanned_calories.csv', index=False)

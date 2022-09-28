@@ -1,0 +1,205 @@
+Food,Bi_category,Tag,Unit,Grams,Calories,Protein,Fat,Sat.Fat,Fiber,Carbs,GI,GI_level
+Cows' milk,Dairy_products_1,1,1 cup,250,169.06,8.2,10.25,9.22,0,12.3,27.6,low
+Milk skim,Dairy_products_1,1,1 cup,250,91.46,9.15,0,0,0,13.21,27.6,low
+Cheese,Dairy_products_2,1,15g,15,16.0,2,0.73,0.67,0,0.4,27.0,low
+Cheddar,Dairy_products_2,1,15g,15,61.76,3.53,5.29,4.41,0,0,27.0,low
+Cream cheese,Dairy_products_2,1,15g,15,56.25,1.07,5.89,5.36,0,0.54,27.0,low
+Swiss,Dairy_products_2,1,15g,15,56.25,3.75,4.29,3.75,0,0,27.0,low
+Boiled eggs,EGG,0,1,50,72.0,6,5,0,0,0,,low
+Eggs Scrambled or fried,EGG,0,2,128,176.0,18,13,12,0,4,,low
+Corn oil,oil,1,10g,10,89.29,0,10,3.57,0,0,,low
+Olive oil,oil,1,10g,10,89.29,0,10,2.14,0,0,,low
+Safflower seed oil,oil,1,10g,10,89.29,0,10,2.14,0,0,,low
+Mayonnaise,oil,1,10g,10,73.33,0,8,3.33,0,0,,low
+Thousand Island sauce,oil,1,10g,10,50.0,0,5.33,2,0,0.67,,low
+Roast beef,Meat,0,85g,85,390.0,16,36,35,0,0,,low
+Steak,Meat,0,85g,85,330.0,20,27,25,0,0,,low
+Roasted chicken,Meat,0,100g,100,290.0,25,20,16,0,0,,low
+"Lamb, chop, broiled",Meat,0,85g,85,354.78,17.74,25.87,24.39,0,0,,low
+Leg roasted,Meat,0,85g,85,314.0,20,14,14,0,0,,low
+Pork roast,Meat,0,85g,85,310.0,21,24,21,0,0,,low
+Beef,Meat,2,85g,85,245.0,23,16,15,0,0,,low
+chicken,Meat,2,85g,85,185.0,23,9,7,0,0,,low
+"Duck, domestic",Meat,2,100g,100,370.0,16,28,0,0,0,,low
+Pork,Meat,2,100g,100,260.0,16,21,18,0,0,,low
+Turkey,Meat,2,100g,100,265.0,27,15,0,0,0,,low
+Beef,Meat,3,85g,85,245.0,23,16,15,0,0,,low
+chicken,Meat,3,100g,100,217.65,27.06,10.59,8.23,0,0,,low
+"Duck, domestic",Meat,3,100g,100,370.0,16,28,0,0,0,,low
+Pork,Meat,3,100g,100,260.0,16,21,18,0,0,,low
+Turkey,Meat,3,100g,100,265.0,27,15,0,0,0,,low
+Clams,seafood,2,3 oz.,85,87.0,12,1,0,0,2,,low
+Cod,seafood,2,3.5 oz.,100,170.0,28,5,0,0,0,,low
+Crab meat,seafood,2,3 oz.,85,90.0,14,2,0,0,1,,low
+Flounder,seafood,2,3.5 oz.,100,200.0,30,8,0,0,0,,low
+Haddock,seafood,2,3 oz.,85,135.0,16,5,4,0,6,,low
+Halibut,seafood,2,3.5 oz.,100,182.0,26,8,0,0,0,,low
+Herring,seafood,2,1 small,100,211.0,22,13,0,0,0,,low
+Lobster,seafood,2,100g,100,92.0,18,1,0,0,0,,low
+Mackerel,seafood,2,3 oz.,85,155.0,18,9,0,0,0,,low
+Salmon,seafood,2,3 oz.,85,120.0,17,5,1,0,0,,low
+Sardines,seafood,2,3 oz.,85,180.0,22,9,4,0,0,,low
+Scallops,seafood,2,3.5 oz.,100,104.0,18,8,0,0,10,,low
+Shad,seafood,2,3 oz.,85,170.0,20,10,0,0,0,,low
+Shrimp,seafood,2,3 oz.,85,110.0,23,1,0,0,0,,low
+Swordfish,seafood,2,100g,100,180.0,27,6,0,0,0,,low
+Tuna,seafood,2,3 oz.,85,170.0,25,7,3,0,0,,low
+Clams,seafood,3,3 oz.,85,87.0,12,1,0,0,2,,low
+Cod,seafood,3,3.5 oz.,100,170.0,28,5,0,0,0,,low
+Crab meat,seafood,3,3 oz.,85,90.0,14,2,0,0,1,,low
+Flounder,seafood,3,3.5 oz.,100,200.0,30,8,0,0,0,,low
+Haddock,seafood,3,3 oz.,85,135.0,16,5,4,0,6,,low
+Halibut,seafood,3,3.5 oz.,100,182.0,26,8,0,0,0,,low
+Herring,seafood,3,1 small,100,211.0,22,13,0,0,0,,low
+Lobster,seafood,3,100g,100,92.0,18,1,0,0,0,,low
+Mackerel,seafood,3,3 oz.,85,155.0,18,9,0,0,0,,low
+Salmon,seafood,3,3 oz.,85,120.0,17,5,1,0,0,,low
+Sardines,seafood,3,3 oz.,85,180.0,22,9,4,0,0,,low
+Scallops,seafood,3,3.5 oz.,100,104.0,18,8,0,0,10,,low
+Shad,seafood,3,3 oz.,85,170.0,20,10,0,0,0,,low
+Shrimp,seafood,3,3 oz.,85,110.0,23,1,0,0,0,,low
+Swordfish,seafood,3,100g,100,180.0,27,6,0,0,0,,low
+Tuna,seafood,3,3 oz.,85,170.0,25,7,3,0,0,,low
+Clams,seafood,4,3 oz.,85,87.0,12,1,0,0,2,,low
+Cod,seafood,4,3.5 oz.,100,170.0,28,5,0,0,0,,low
+Crab meat,seafood,4,3 oz.,85,90.0,14,2,0,0,1,,low
+Flounder,seafood,4,3.5 oz.,100,200.0,30,8,0,0,0,,low
+Haddock,seafood,4,3 oz.,85,135.0,16,5,4,0,6,,low
+Halibut,seafood,4,3.5 oz.,100,182.0,26,8,0,0,0,,low
+Herring,seafood,4,1 small,100,211.0,22,13,0,0,0,,low
+Lobster,seafood,4,100g,100,92.0,18,1,0,0,0,,low
+Mackerel,seafood,4,3 oz.,85,155.0,18,9,0,0,0,,low
+Oyster stew,seafood,4,1 cup,85,125.0,19,6,1,0,0,,low
+Salmon,seafood,4,3 oz.,85,120.0,17,5,1,0,0,,low
+Sardines,seafood,4,3 oz.,85,180.0,22,9,4,0,0,,low
+Scallops,seafood,4,3.5 oz.,100,104.0,18,8,0,0,10,,low
+Shad,seafood,4,3 oz.,85,170.0,20,10,0,0,0,,low
+Shrimp,seafood,4,3 oz.,85,110.0,23,1,0,0,0,,low
+Swordfish,seafood,4,100g,100,180.0,27,6,0,0,0,,low
+Tuna,seafood,4,3 oz.,85,170.0,25,7,3,0,0,,low
+Artichoke,Vegetables,2,100g,100,39.0,2,0,0,2,10,,low
+Artichoke,Vegetables,5,100g,100,39.0,2,0,0,2,10,15.0,low
+Asparagus,Vegetables,2,100g,100,18.0,1,0,0,0.5,3,15.0,low
+Asparagus,Vegetables,5,100g,100,18.0,1,0,0,0.5,3,15.0,low
+Bean sprouts,Vegetables,2,100g,100,34.0,2,0,0,0.6,6,,low
+Bean sprouts,Vegetables,5,100g,100,34.0,2,0,0,0.6,6,25.0,low
+Beans,Vegetables,2,100g,100,20.0,0.8,0,0,0.64,4.8,,low
+Beet greens,Vegetables,2,100g,100,27.0,2,0,0,1.4,6,,low
+Beet greens,Vegetables,5,100g,100,27.0,2,0,0,1.4,6,,low
+Beetroots,Vegetables,2,100g,100,0.6,7.23,0,0,0,0.64,,low
+Beetroots,Vegetables,5,100g,100,0.6,7.23,0,0,0,0.64,,low
+Broccoli,Vegetables,2,100g,100,30.0,3.33,0,0,1.27,5.33,,low
+Broccoli,Vegetables,5,100g,100,30.0,3.33,0,0,1.27,5.33,30.0,low
+Carrots,Vegetables,1,100g,100,30.0,0.67,0,0,0.6,6.67,24.0,low
+Carrots,Vegetables,5,100g,100,30.0,0.67,0,0,0.6,6.67,25.0,low
+Cauliflower,Vegetables,2,100g,100,25.0,2.5,0,0,0.83,5,,low
+Cauliflower,Vegetables,4,100g,100,25.0,2.5,0,0,0.83,5,,low
+Cauliflower,Vegetables,5,100g,100,25.0,2.5,0,0,0.83,5,15.0,low
+Celery,Vegetables,1,100g,100,20.0,1,0,0,1,4,15.0,low
+Celery,Vegetables,5,100g,100,20.0,1,0,0,1,4,15.0,low
+Chard steamed,Vegetables,0,100g,100,20.0,1.33,0,0,0.93,4.67,15.0,low
+Collards,Vegetables,1,100g,100,34.0,3.33,0,0,1.33,5.33,15.0,low
+Collards,Vegetables,5,100g,100,34.0,3.33,0,0,1.33,5.33,15.0,low
+Corn,Vegetables,2,100g,100,92.0,3,1,0,0.8,21,55.0,high
+Cucumbers,Vegetables,1,100g,100,12.0,0,0,0,0.4,2,15.0,low
+Cucumbers,Vegetables,5,100g,100,12.0,0,0,0,0.4,2,15.0,low
+Dandelion greens,Vegetables,1,100g,100,44.44,2.78,0.56,0,1.78,8.89,15.0,low
+Dandelion greens,Vegetables,5,100g,100,44.44,2.78,0.56,0,1.78,8.89,15.0,low
+Eggplant,Vegetables,2,100g,100,16.67,1.11,0,0,0.56,5,15.0,low
+"Fresh, steamed peas",Vegetables,0,100g,100,70.0,5,0,0,2.2,12,15.0,low
+Iceberg,Vegetables,1,100g,100,13.0,0,0,0,0.5,3,15.0,low
+Iceberg,Vegetables,5,100g,100,13.0,0,0,0,0.5,3,15.0,low
+Kale,Vegetables,1,100g,100,40.91,3.64,0.91,0,0.82,7.27,15.0,low
+Kale,Vegetables,5,100g,100,40.91,3.64,0.91,0,0.82,7.27,15.0,low
+Lentils,Vegetables,2,100g,100,106.0,7.5,0,0,1.2,19,32.0,low
+Lettuce,Vegetables,1,100g,100,14.0,1,0,0,0.5,2,15.0,low
+Lettuce,Vegetables,5,100g,100,14.0,1,0,0,0.5,2,15.0,low
+Mushrooms canned,Vegetables,0,100g,100,10.0,1.66,0,0,0,3.34,,low
+Okra,Vegetables,2,100g,100,32.0,1,0,0,1,7,15.0,low
+Onions,Vegetables,1,100g,100,38.1,0.95,0,0,0.76,8.57,15.0,low
+Onions,Vegetables,5,100g,100,38.1,0.95,0,0,0.76,8.57,15.0,low
+Parsley,Vegetables,1,100g,100,4.0,0,0,0,0,0,15.0,low
+Parsley,Vegetables,5,100g,100,4.0,0,0,0,0,0,15.0,low
+Parsnips,Vegetables,1,100g,100,61.29,1.29,0.65,0,1.94,14.19,15.0,low
+Parsnips,Vegetables,5,100g,100,61.29,1.29,0.65,0,1.94,14.19,15.0,low
+Peas,Vegetables,2,100g,100,66.0,3,0,0,0.1,13,54.0,low
+"Peppers Raw, green, sweet",Vegetables,1,100g,100,25.0,1,0,0,1.4,6,15.0,low
+"Peppers Raw, green, sweet",Vegetables,5,100g,100,25.0,1,0,0,1.4,6,15.0,low
+Potatoes Mashed with milk and butter,Vegetables,0,100g,100,115.0,2,6,5.5,0.35,14,73.0,high
+"Potatoes, baked",Vegetables,0,100g,100,100.0,2,0,0,0.5,22,78.0,high
+"Potatoes, pan-tried",Vegetables,0,100g,100,268.0,4,14,6,0.4,33,93.0,high
+Radishes,Vegetables,2,100g,100,20.0,0,0,0,0.6,4,26.0,low
+Red kidney,Vegetables,2,100g,100,88.46,5.77,0.38,0,0.96,16.15,24.0,low
+Rutabagas,Vegetables,1,100g,100,32.0,0,0,0,1.4,8,26.0,low
+Rutabagas,Vegetables,5,100g,100,32.0,0,0,0,1.4,8,26.0,low
+Soybeans,Vegetables,2,100g,100,130.0,11,5.5,0,1.6,10,18.0,low
+Spinach,Vegetables,1,100g,100,26.0,3,0,0,1,3,15.0,low
+Spinach,Vegetables,5,100g,100,26.0,3,0,0,1,3,15.0,low
+Squash,Vegetables,3,100g,100,16.67,0.48,0,0,0.29,3.81,64.0,mid
+Squash,Vegetables,4,100g,100,16.67,0.48,0,0,0.29,3.81,64.0,mid
+Steamed cabbage,Vegetables,0,100g,100,23.53,1.18,0,0,0.76,5.29,15.0,low
+Sweet potatoes,Vegetables,3,100g,100,140.91,1.82,0.91,0,0.91,32.73,61.0,mid
+Sweet potatoes,Vegetables,4,100g,100,140.91,1.82,0.91,0,0.91,32.73,94.0,high
+Tomatoes,Vegetables,1,100g,100,20.83,0.83,0,0,0.42,3.75,15.0,low
+Tomatoes,Vegetables,5,100g,100,20.83,0.83,0,0,0.42,3.75,15.0,low
+"Turnips, steamed",Vegetables,0,100g,100,25.81,0.65,0,0,1.16,5.81,26.0,low
+Apple juice canned,Fruit_2,1,1 cup,250,125.0,0,0,0,0,34,44.0,low
+"Apples, raw",Fruit_1,1,1 med.,130,70.0,0,0,0,1,18,36.0,low
+Apricots,Fruit_1,1,1 cup,250,220.0,2,0,0,1,57,58.0,mid
+Avocado,Fruit_1,1,1/2 unit,108,185.0,2,18,12,1.8,6,40.0,low
+Banana,Fruit_1,1,1 med.,150,85.0,1,0,0,0.9,23,52.0,low
+Blackberries,Fruit_1,1,1 cup,250,147.57,3.47,1.74,0,11.46,32.99,25.0,low
+Blueberries,Fruit_1,1,1 cup,250,245.0,1,0,0,2,65,53.0,low
+Cantaloupe,Fruit_1,1,1/4 unit,200,21.05,0.53,0,0,1.16,4.74,70.0,high
+Cherries,Fruit_1,1,1 cup,250,97.28,1.95,0.97,0,1.95,25.29,22.0,low
+Dates,Fruit_1,1,1 cup,250,709.27,5.62,0,0,5.06,188.2,42.0,low
+Figs,Fruit_1,1,2,42,120.0,2,0,0,1.9,30,,low
+"Grapefruit, fresh, 5"" diameter",Fruit_1,1,1 cup,250,43.86,0.88,0,0,0.88,12.28,,low
+Grapefruit juice,Fruit_2,1,1 cup,250,100.0,1,0,0,1,24,,low
+Grapes,Fruit_1,1,1 cup,250,114.38,1.63,0,0,1.31,26.14,46.0,low
+Grape juice,Fruit_2,1,1 cup,250,160.0,1,0,0,0,42,63.0,mid
+Lemon juice,Fruit_2,1,1/2 cup,125,30.0,0,0,0,0,10,,low
+Olives large,Fruit_1,1,5,33,36.0,0.5,5,4.5,0.4,1.5,,low
+Orange juice,Fruit_2,1,1 cup,250,112.0,2,0,0,0.2,25,50.0,low
+Papaya,Fruit_1,1,1/2 unit,200,75.0,1,0,0,1.8,18,56.0,mid
+Peaches,Fruit_1,1,1 cup,250,194.55,0.97,0,0,0.97,50.58,28.0,low
+Pears,Fruit_1,1,1 cup,250,191.18,0.98,0,0,1.96,49.02,36.0,low
+Persimmons,Fruit_1,1,1 med.,125,75.0,1,0,0,2,20,50.0,low
+Pineapple,Fruit_1,1,1 slice,122,95.0,0,0,0,0.4,26,59.0,mid
+Pineapple juice,Fruit_2,1,1 cup,250,120.0,1,0,0,0.2,32,,mid
+Plums,Fruit_1,1,1 cup,250,180.66,0.98,0,0,0.68,48.83,24.0,low
+Prunes,Fruit_1,1,1 cup,250,277.78,2.78,0.93,0,0.74,75,39.0,low
+Prune juice,Fruit_2,1,1 cup,250,177.08,1.04,0,0,0.73,46.88,43.0,low
+Raspberries,Fruit_1,1,1 cup,250,250.0,0,0,0,5,62.5,,low
+Strawberries,Fruit_1,1,1 cup,250,266.52,1.1,0,0,1.43,66.08,40.0,low
+Tangerines,Fruit_1,1,1 med.,114,40.0,1,0,0,1,10,43.0,low
+Watermelon,Fruit_1,1,1/4 wedge,250,32.43,0.54,0.27,0,0.97,7.84,72.0,high
+Tomato juice,Fruit_2,1,1 cup,250,52.08,2.08,0,0,0.63,10.42,38.0,low
+Rye bread,Staple_food,0,1 slice,23,55.0,2,1,1,0.1,12,34.0,low
+White bread,Staple_food,0,1 slice,23,62.06,1.98,0.76,0.61,0.46,11.6,42.0,low
+Whole-wheat bread,Staple_food,0,1 slice,23,55.0,2,1,0,0.31,11,69.0,mid
+Cornflakes,Staple_food,0,150g,150,660.0,12,0,0,0.6,150,81.0,high
+Corn grits cooked,Staple_food,0,150g,150,74.2,4.96,0,0,0.13,16.73,52.0,low
+Macaroni,Staple_food,0,150g,150,166.07,5.36,1.07,0,0.11,34.28,50.0,low
+Noodles,Staple_food,0,150g,150,187.5,6.56,1.88,1.88,0.1,34.69,62.0,mid
+Oatmeal,Staple_food,0,150g,150,95.34,3.18,1.91,1.27,2.92,16.52,57.0,mid
+"Pancakes 4"" diam.",Staple_food,0,4,108,250.0,7,9,0,0.1,28,66.0,mid
+"Pizza 14"" diam.",Staple_food,0,1 section,75,180.0,8,6,5,0,23,80.0,high
+Rice,Staple_food,0,150g,150,539.42,10.82,2.17,0,0.86,111.06,78.0,high
+Rolls,Staple_food,0,1,50,411.0,3,12,11,0.1,23,62.0,mid
+Waffles,Staple_food,0,1,75,240.0,8,9,1,0.1,30,77.0,high
+Wheat-germ cereal toasted,Staple_food,0,150g,150,600.0,46.16,16.16,6.92,5.78,83.08,69.0,mid
+"Wheat, cooked",Staple_food,0,150g,150,206.25,9,0.75,0,3.3,26.25,63.0,mid
+Almonds,Nuts,1,50g,50,303.57,9.29,27.14,20,1.29,9.29,,low
+Brazil nuts,Nuts,1,50g,50,326.43,7.14,33.57,22.14,1.43,5,,low
+Cashews,Nuts,1,50g,50,280.0,8.57,22.86,20,0.64,14.29,17.86,low
+Peanuts,Nuts,1,50g,50,290.0,13,25,16,1.2,9,14.0,low
+Pecans,Nuts,1,50g,50,329.81,4.81,33.65,24.04,1.06,6.73,14.0,low
+Sesame seeds,Nuts,1,50g,50,280.0,9,24,13,3.1,10,35.0,low
+Sunflower seeds,Nuts,1,50g,50,280.0,12,26,7,1.9,10,,low
+Walnuts,Nuts,1,50g,50,325.0,7,32,7,1,8,20.0,low
+Beer,Drinks,1,1 cup,250,118.75,0,0,0,0,4.17,66.0,mid
+Wines,Drinks,1,1/2 cup,125,170.83,0,0,0,0,9.38,15.0,low
+Club soda,Drinks,1,12 oz.,346,0.0,0,0,0,0,0,,low
+Coffee,Drinks,1,1 cup,250,3.26,0,0,0,0,1.09,,low
+Tea,Drinks,1,1 cup,250,4.35,0,0,0,0,1.09,,low
