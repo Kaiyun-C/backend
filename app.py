@@ -8,6 +8,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
+import pickle
 import chart_studio
 import plotly.graph_objects as go
 import chart_studio.plotly as py
@@ -577,6 +578,29 @@ def all_tag_food_recipe():
     # tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
     return jsonify(tag_recipe_pair)
 
+
+@app.route("/predict", methods=["POST","GET"], strict_slashes=False)
+def diabetes_predict():
+    filename = 'finalized_model.sav'
+    loaded_model = pickle.load(open(filename, 'rb'))
+
+    # drop when get value from front-end
+    lst = ['yes', 'yes', 'no', 'no', 'yes', 'yes']
+    json_lst = json.dumps(lst)
+    values = json.loads(json_lst)
+    values = [1 if i == 'yes' else 0 for i in values] # [1,1,0,0,1,1]
+
+    # get value from front-end
+    # values = request.json[]
+    # values = [1 if i == 'yes' else 0 for i in values]
+
+    feature_name = ['have_prediabetes','family_history','overweight','poor_diet','lack_physical_activity','high_blood_sugar']
+    test_data = dict(zip(feature_name, values))
+    test_df = pd.DataFrame([test_data])
+
+    pred_result = loaded_model.predict_proba(test_df)
+    get_diabetes = round(pred_result[0][1], 2)
+    return jsonify({"diabetes prediction": get_diabetes})
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def index():
