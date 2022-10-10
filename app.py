@@ -585,14 +585,14 @@ def diabetes_predict():
     loaded_model = pickle.load(open(filename, 'rb'))
 
     # drop when get value from front-end
-    lst = ['yes', 'yes', 'no', 'no', 'yes', 'yes']
-    json_lst = json.dumps(lst)
-    values = json.loads(json_lst)
-    values = [1 if i == 'yes' else 0 for i in values] # [1,1,0,0,1,1]
+    # lst = ['yes', 'yes', 'no', 'no', 'yes', 'yes']
+    # json_lst = json.dumps(lst)
+    # values = json.loads(json_lst)
+    # values = [1 if i == 'yes' else 0 for i in values] # [1,1,0,0,1,1]
 
     # get value from front-end
-    # values = request.json[]
-    # values = [1 if i == 'yes' else 0 for i in values]
+    values = request.json['answer']
+    values = [1 if i == 'yes' else 0 for i in values]
 
     feature_name = ['have_prediabetes','family_history','overweight','poor_diet','lack_physical_activity','high_blood_sugar']
     test_data = dict(zip(feature_name, values))
