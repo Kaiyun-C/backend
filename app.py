@@ -586,21 +586,33 @@ def diabetes_predict():
 
     # drop when get value from front-end
     # lst = ['yes', 'yes', 'no', 'no', 'yes', 'yes']
-    # json_lst = json.dumps(lst)
-    # values = json.loads(json_lst)
+    # values = json.dumps(lst)
+    # values = json.loads(values)
     # values = [1 if i == 'yes' else 0 for i in values] # [1,1,0,0,1,1]
+    # values = '1243'
 
+    feature_name = ['have_prediabetes', 'family_history', 'overweight', 'poor_diet', 'lack_physical_activity',
+                    'high_blood_sugar']
     # get value from front-end
     values = request.json['answer']
-    values = [1 if i == 'yes' else 0 for i in values]
-
-    feature_name = ['have_prediabetes','family_history','overweight','poor_diet','lack_physical_activity','high_blood_sugar']
-    test_data = dict(zip(feature_name, values))
-    test_df = pd.DataFrame([test_data])
-
-    pred_result = loaded_model.predict_proba(test_df)
-    get_diabetes = round(pred_result[0][1], 2)
-    return jsonify({"diabetes prediction": get_diabetes})
+    try:
+        if type(values) == str:
+            values = json.loads(values)
+            values = [1 if i == 'yes' else 0 for i in values]
+            test_data = dict(zip(feature_name, values))
+            test_df = pd.DataFrame([test_data])
+            pred_result = loaded_model.predict_proba(test_df)
+            get_diabetes = round(pred_result[0][1], 2)
+            return jsonify({"diabetes prediction": get_diabetes})
+        elif type(values) == list:
+            values = [1 if i == 'yes' else 0 for i in values]
+            test_data = dict(zip(feature_name, values))
+            test_df = pd.DataFrame([test_data])
+            pred_result = loaded_model.predict_proba(test_df)
+            get_diabetes = round(pred_result[0][1], 2)
+            return jsonify({"diabetes prediction": get_diabetes})
+    except:
+        print(jsonify("Error"))
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def index():
