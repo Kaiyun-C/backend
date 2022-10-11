@@ -218,7 +218,7 @@ class Recipe:
         five_Vegetables_cal = [each['Calories'] for each in Vegetables_lunch]
         five_Vegetables_pro = [each['Protein'] for each in Vegetables_lunch]
         five_Vegetables_carb = [each['Carbs'] for each in Vegetables_lunch]
-        if self.tag != 'veg':
+        if self.tag != 'Vegetarian':
             ve_cal_lunch = sum(five_Vegetables_cal) / 2
             ve_pro_lunch = sum(five_Vegetables_pro) / 2
             ve_carb_lunch = sum(five_Vegetables_carb) / 2
@@ -240,7 +240,7 @@ class Recipe:
         four_Vegetables_cal = [each['Calories'] for each in four_Vegetables]
         four_Vegetables_pro = [each['Protein'] for each in four_Vegetables]
         four_Vegetables_carb = [each['Carbs'] for each in four_Vegetables]
-        if self.tag != 'veg':
+        if self.tag != 'Vegetarian':
             ve_cal_dinner_1 = sum(four_Vegetables_cal) / 2
             ve_pro_dinner_1 = sum(four_Vegetables_pro) / 2
             ve_carb_dinner_1 = sum(four_Vegetables_carb) / 2
@@ -286,7 +286,7 @@ class Recipe:
                          + Dairy_product['Food'] + ' ' + Dairy_product['Unit'] + '; ' \
                          + Fruit_breakfast['Unit'] + ' ' + Fruit_breakfast['Food'] + ' ' + str(
             Fruit_breakfast['Grams']) + 'g'
-        if tag == 'veg':
+        if tag == 'Vegetarian':
             Lunch_plan = one_Staple_lunch['Food'] + ' ' + str(one_Staple_lunch['Grams']) + 'g; ' \
                          + '1 egg; ' \
                          + 'Salad: ' + Vegetables_lunch_str + '; ' \
@@ -316,7 +316,7 @@ class Recipe:
             carb_din = int(0 + Vegetables_dinner_one['Carbs'] + ve_carb_dinner_1 + Nuts['Carbs'] / 2)
             carb_1day = carb_bre + carb_lun + carb_din
         else:
-            if tag != 'high_protein':
+            if tag != 'High Protein':
                 Lunch_plan = one_Staple_lunch['Food']+ ' '+str(one_Staple_lunch['Grams']) +'g; '\
                             + Meat_lunch['Food'] + ' ' + Meat_lunch['Unit']  + ' ' + Tag_dict[Meat_lunch['Tag']]\
                             + ' or ' + Seafood_lunch['Food'] + ' ' + Seafood_lunch['Unit'] + ' (Boiled, steamed or baked); '\
@@ -426,4 +426,5 @@ for i in range(0, len(dict_name_list)):
         pair = Recipe(tag,dict_list[i])
         tag_recipe_pair[tag_name] = pair.fifty_plan(tag, dict_list[i])
 #tag_recipe_pair_json = json.dumps(tag_recipe_pair, ensure_ascii=False)
-print(tag_recipe_pair.keys())
+
+print(tag_recipe_pair['Vegetarian'])
